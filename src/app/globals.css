@@ -1,26 +1,112 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Paleta "Quiet Luxury" 2025 */
+    --background: #F9F7F2; /* Off-white quente, textura de papel */
+    --foreground: #1C1917; /* Stone 900 - Mais suave que preto puro */
+    
+    --primary: #D4C5B5; /* Bege/Areia elegante */
+    --primary-foreground: #1C1917;
+    
+    --secondary: #E6E2DE; /* Tom de pedra claro */
+    --secondary-foreground: #1C1917;
+    
+    --accent: #f5c782; /* Dourado/Âmbar vibrante e elegante */
+    --muted: #F5F5F0;
+    
+    --border: #E7E5E4;
+  }
+
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: 100px; /* Garante que o scroll pare antes do menu fixo */
+  }
+
+  body {
+    /* Usando variáveis CSS puras para evitar erro de build "unknown utility" no @apply */
+    background-color: var(--background);
+    color: var(--foreground);
+    /* A fonte já é definida no layout.tsx via classe font-sans */
+    @apply antialiased;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* --- RESETS DE TIPOGRAFIA (A Mágica Acontece Aqui) --- */
+  /* Isso faz suas seções ganharem hierarquia visual instantaneamente */
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground);
+    text-wrap: balance; /* Equilibra o texto dos títulos automaticamente (Tendência 2025) */
+  }
+
+  h1 {
+    font-size: 2.25rem; /* text-4xl */
+    line-height: 2.5rem;
+    font-weight: 500; /* font-medium */
+    letter-spacing: -0.025em; /* tracking-tight */
+    margin-bottom: 1.5rem; /* mb-6 */
+  }
+  @media (min-width: 768px) { h1 { font-size: 3rem; line-height: 1; } } /* text-5xl */
+  @media (min-width: 1024px) { h1 { font-size: 4.5rem; line-height: 1; } } /* text-7xl */
+
+  h2 {
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 2.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem; /* mb-4 */
+  }
+  @media (min-width: 768px) { h2 { font-size: 2.25rem; line-height: 2.5rem; } } /* text-4xl */
+  @media (min-width: 1024px) { h2 { font-size: 3rem; line-height: 1; } } /* text-5xl */
+
+  h3 {
+    font-size: 1.5rem; /* text-2xl */
+    line-height: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem; /* mb-3 */
+  }
+  @media (min-width: 768px) { h3 { font-size: 1.875rem; line-height: 2.25rem; } } /* text-3xl */
+
+  p {
+    line-height: 1.625; /* leading-relaxed */
+    color: #4b5563; /* text-gray-600 */
+    margin-bottom: 1rem; /* mb-4 */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Configuração Essencial para Lenis (Smooth Scroll) */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Efeito Noise (Textura) */
+.bg-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.04; /* Sutilmente reduzido para elegância */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
