@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -16,7 +17,7 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section ref={ref} className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center">
       
       {/* Background Parallax */}
       <motion.div 
@@ -25,11 +26,32 @@ export default function Hero() {
       >
         {/* Gradiente Radial: Centro transparente -> Bordas claras (#F9F7F2) para integrar com o layout */}
         <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(249,247,242,0.5)_80%,#F9F7F2_100%)]" />
-        <img 
-          src="/hero-bg2.jpg" 
-          alt="Estética de Luxo" 
-          className="w-full h-full object-cover"
-        />
+        
+        {/* Imagem Desktop (Paisagem) - Só aparece em telas médias/grandes */}
+        <div className="hidden md:block relative w-full h-full">
+          <Image 
+            src="/hero-bg2.jpg" 
+            alt="Estética de Luxo" 
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+
+        {/* Imagem Mobile (Vertical/Retrato) - Substituída para ficar perfeita no celular */}
+        <div className="block md:hidden relative w-full h-full">
+          <Image 
+            src="/hero-bg2.jpg" 
+            alt="Estética de Luxo Mobile" 
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-contain object-center -rotate-90 scale-[2.8] translate-x-[-2%]"
+          />
+        </div>
       </motion.div>
 
       {/* Conteúdo Principal */}
@@ -55,7 +77,7 @@ export default function Hero() {
             Estética Avançada 2025
           </motion.span>
           
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none mb-6 text-white drop-shadow-lg">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-none mb-6 text-white drop-shadow-lg">
             <motion.span variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } }} className="block">Arte &</motion.span>
             <motion.span variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } }} className="italic font-light block">Ciência.</motion.span>
           </h1>
@@ -69,12 +91,12 @@ export default function Hero() {
 
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           >
-            <button className="px-8 py-4 bg-[#F9F7F2] text-[#1C1917] rounded-full font-medium hover:bg-[#D4C5B5] transition-colors duration-300 min-w-[180px]">
+            <button className="w-full sm:w-auto px-8 py-4 bg-[#F9F7F2] text-[#1C1917] rounded-full font-medium hover:bg-[#D4C5B5] transition-colors duration-300 min-w-[180px]">
               Agendar Avaliação
             </button>
-            <button className="px-8 py-4 bg-transparent border border-white/30 text-white rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 min-w-[180px]">
+            <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/30 text-white rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 min-w-[180px]">
               Conhecer Clínica
             </button>
           </motion.div>

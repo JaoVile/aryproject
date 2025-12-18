@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, Syringe, ScanFace, Flower2, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   {
@@ -36,12 +37,12 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="tratamentos" className="py-32 bg-background">
+    <section id="tratamentos" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-6">
         
         {/* Cabeçalho da Seção */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
+          <div className="w-full md:w-auto">
             <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-4 block">
               Nossos Protocolos
             </span>
@@ -50,7 +51,7 @@ export default function Services() {
               <span className="italic text-accent">Excelência.</span>
             </h2>
           </div>
-          <p className="max-w-md text-stone-600 font-light leading-relaxed text-right md:text-left">
+          <p className="max-w-md text-stone-600 font-light leading-relaxed text-center md:text-left">
             Selecionamos apenas as tecnologias que entregam resultados reais, sem exageros.
           </p>
         </div>
@@ -64,13 +65,15 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`${service.colSpan} relative rounded-[2rem] p-8 group overflow-hidden min-h-[350px]`}
+              className={`${service.colSpan} relative rounded-[2rem] p-6 md:p-8 group overflow-hidden min-h-[300px] md:min-h-[350px]`}
             >
               {/* Background Image & Overlay */}
               <div className="absolute inset-0 z-0">
-                <img 
+                <Image 
                   src={service.image} 
                   alt={service.title} 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
@@ -86,7 +89,7 @@ export default function Services() {
                   <ArrowUpRight className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300 group-hover:rotate-45" />
                 </div>
 
-                <div>
+                <div className="text-center md:text-left">
                   <h3 className="text-2xl font-serif mb-3 text-white">
                     {service.title}
                   </h3>

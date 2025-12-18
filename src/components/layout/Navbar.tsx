@@ -1,97 +1,120 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
-  const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Bloqueia o scroll do body quando o menu mobile está aberto
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
-  }, [menuOpen]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150 && !menuOpen) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-    setIsScrolled(latest > 50);
-  });
-
-  const navLinks = ["Tratamentos", "Sobre", "Tecnologia", "Depoimentos"];
+  const navLinks = [
+    { name: "Tratamentos", href: "#tratamentos" },
+    { name: "Sobre", href: "#sobre" },
+    { name: "Depoimentos", href: "#depoimentos" },
+    { name: "Contato", href: "#contato" },
+  ];
 
   return (
     <>
       <motion.nav
-        variants={{
-          visible: { y: 0 },
-          hidden: { y: "-100%" },
-        }}
-        animate={hidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "circOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled || menuOpen
-            ? "bg-background/70 backdrop-blur-md border-b border-white/20 py-4 shadow-sm" 
-            : "bg-transparent py-6"
+          isScrolled
+            ? "bg-white/80 backdrop-blur-md border-b border-stone-200/50 py-3 shadow-sm"
+            : "bg-transparent py-6 border-b border-transparent"
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-serif font-medium tracking-tighter text-foreground z-50">
-            Aesthetic<span className="text-accent">.</span>
+          <Link href="/" className="text-2xl font-serif font-medium tracking-tighter text-foreground z-50 relative group">
+            Aesthetic<span className="text-accent group-hover:text-foreground transition-colors duration-300">.</span>
           </Link>
 
-          {/* Links Desktop - Agora com bordas permanentes para melhor affordance */}
-          <div className="hidden md:flex items-center gap-3">
-            {navLinks.map((item) => (
-              <Link 
-                key={item} 
-                href={`#${item.toLowerCase()}`}
-                className="text-sm font-medium text-foreground/70 border border-stone-900/10 px-4 py-2 rounded-full transition-all duration-300 hover:bg-stone-900/10 hover:text-foreground"
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-1 bg-white/5 backdrop-blur-sm p-1 rounded-full border border-white/10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-sm font-medium px-5 py-2 rounded-full transition-all duration-300 ${
+                    isScrolled 
+                    ? "text-stone-600 hover:bg-stone-100 hover:text-foreground" 
+                    : "text-stone-800 hover:bg-white/80 hover:text-foreground"
+                }`}
               >
-                {item}
+                {link.name}
               </Link>
             ))}
           </div>
 
           {/* CTA Button */}
-          <button className="hidden md:block px-6 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:bg-accent transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-            Agendar Consulta
-          </button>
+          <div className="hidden md:block">
+             <button className="px-6 py-2.5 bg-[#1C1917] text-[#F9F7F2] text-sm font-medium rounded-full hover:bg-accent hover:text-[#1C1917] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                Agendar Consulta
+             </button>
+          </div>
 
-          {/* Mobile Menu Icon */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden z-50 text-foreground p-2 -mr-2">
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden z-50 text-foreground p-2 -mr-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </motion.nav>
 
       {/* Mobile Menu Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: menuOpen ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`fixed inset-0 bg-background z-40 md:hidden ${menuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
-      >
-        <div className="container mx-auto h-full flex flex-col items-center justify-center gap-8 pt-20">
-          {navLinks.map((item) => (
-            <Link key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="text-3xl font-serif text-foreground hover:text-accent transition-colors">
-              {item}
-            </Link>
-          ))}
-          <button onClick={() => setMenuOpen(false)} className="mt-8 px-8 py-4 bg-foreground text-background text-lg font-medium rounded-full">
-            Agendar Consulta
-          </button>
-        </div>
-      </motion.div>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-[#F9F7F2] pt-24 px-6 md:hidden flex flex-col"
+          >
+            <div className="flex flex-col gap-6 mt-8">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + (i * 0.1) }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-3xl font-serif text-foreground block border-b border-stone-200 pb-4"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.button 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="w-full py-4 bg-[#1C1917] text-[#F9F7F2] font-medium rounded-xl mt-4 text-lg"
+              >
+                Agendar Consulta
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -40,7 +40,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="depoimentos" className="py-32 bg-[#F9F7F2] relative overflow-hidden">
+    <section id="depoimentos" className="py-20 md:py-32 bg-[#F9F7F2] relative overflow-hidden">
       {/* Linha divisória sutil no topo */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
       
@@ -56,12 +56,7 @@ export default function Testimonials() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative bg-white/50 backdrop-blur-sm border border-white/60 rounded-[2rem] p-8 md:p-16 shadow-sm">
-            {/* Ícone de Aspas Decorativo */}
-            <div className="absolute top-8 left-8 text-accent/20">
-              <Quote size={64} strokeWidth={1} className="fill-accent/5" />
-            </div>
-
+          <div className="relative bg-white/50 backdrop-blur-sm border border-white/60 rounded-[2rem] p-6 md:p-16 shadow-sm">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -77,7 +72,7 @@ export default function Testimonials() {
                   ))}
                 </div>
                 
-                <p className="font-serif text-2xl md:text-3xl leading-relaxed text-stone-700 mb-10 italic">
+                <p className="font-serif text-xl md:text-3xl leading-relaxed text-stone-700 mb-10 italic">
                   "{testimonials[currentIndex].text}"
                 </p>
 

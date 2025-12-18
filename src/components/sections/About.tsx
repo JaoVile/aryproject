@@ -15,15 +15,14 @@ export default function About() {
             <div className="sticky top-32 h-[600px] w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-stone-900/10">
               {/* Usando uma imagem online do Unsplash para não precisar baixar arquivo */}
               <img 
-                 src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop" 
-                 alt="A fundadora"
+                 src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Ambiente da clínica"
                  className="object-cover w-full h-full"
               />
-              
-              {/* Badge decorativo sobre a foto */}
-              <div className="absolute bottom-8 left-8 bg-background/95 backdrop-blur-lg p-4 rounded-xl shadow-xl border border-white/10">
-                <p className="text-base font-serif italic text-stone-700">"Beleza que revela."</p>
-              </div>
+              {/* Camada de gradiente para o tom de destaque (accent) */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-accent opacity-30" />
+              {/* Camada de gradiente escuro para profundidade */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-black/60" />
             </div>
           </div>
 

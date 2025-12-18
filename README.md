@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aesthetic Clinic | Quiet Luxury Template
 
-## Getting Started
+![Project Banner](public/hero-bg2.jpg)
 
-First, run the development server:
+> Uma experiência digital imersiva para clínicas de estética de alto padrão, focada em **Quiet Luxury**, performance e conversão.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Desenvolvido com **Next.js 14**, **TypeScript** e **Tailwind CSS**, este projeto redefine o padrão de sites institucionais com animações fluidas, otimização extrema e design sensorial.
+
+---
+
+## ✨ Diferenciais & Features
+
+### 🎨 Design & UX (Sensorial)
+- **Quiet Luxury UI:** Paleta de cores sofisticada (Off-white, Stone, Gold) e tipografia editorial.
+- **Smooth Scroll (Lenis):** Rolagem "amanteigada" que simula a física de aplicativos nativos.
+- **Parallax Hero:** Efeito de profundidade na capa principal.
+- **Micro-interações:** Botões e elementos que reagem suavemente ao cursor.
+- **Preloader Cinematográfico:** Entrada dramática com contador de progresso.
+
+### 🚀 Performance & SEO (Técnico)
+- **Next.js Image Optimization:** Imagens em formato WebP/AVIF com carregamento lazy e blur-up.
+- **SEO Otimizado:** Metadados Open Graph (WhatsApp/Instagram), Sitemap XML e Robots.txt configurados.
+- **PWA Ready:** Arquivo `manifest.ts` configurado para instalação em mobile (Add to Home Screen).
+- **Fonte Otimizada:** `next/font` para carregamento zero-layout-shift.
+
+### 💼 Funcionalidades de Negócio
+- **Botão Flutuante WhatsApp:** Conversão direta sem poluir o design.
+- **FAQ Accordion:** Seção de perguntas frequentes para quebra de objeções.
+- **Cookie Consent:** Banner de privacidade em conformidade com LGPD.
+- **Bento Grid Services:** Apresentação moderna dos serviços.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Framework:** Next.js 14 (App Router)
+- **Linguagem:** TypeScript
+- **Estilização:** Tailwind CSS
+- **Animações:** Framer Motion
+- **Scroll:** Lenis
+- **Ícones:** Lucide React
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/JaoVile/SEprojects.git
+   cd SEprojects
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+
+3. **Rode o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Acesse:** Abra http://localhost:3000 no seu navegador.
+
+---
+
+## 📂 Estrutura de Pastas
+
+```
+src/
+├── app/              # App Router (Páginas, Layout, SEO)
+├── components/       # Componentes React
+│   ├── layout/       # Navbar, Footer, SmoothScroll
+│   ├── sections/     # Seções da Landing Page (Hero, About, etc.)
+│   └── ui/           # Componentes menores (Botões, Preloader)
+└── lib/              # Utilitários e configurações
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 👨‍💻 Autor
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Desenvolvido por **João Marcos F. Vilela**.
+GitHub

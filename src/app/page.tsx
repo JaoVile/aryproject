@@ -3,6 +3,8 @@ import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
+import FAQ from "@/components/sections/FAQ";
+import Contact from "@/components/sections/Contact";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -29,6 +31,12 @@ export default function Home() {
 
       {/* Seção 4: Prova Social (Depoimentos) */}
       <Testimonials />
+
+      {/* Seção Extra: FAQ (Quebra de Objeções) */}
+      <FAQ />
+
+      {/* Seção 5: Contato (Conversão) */}
+      <Contact />
 
       {/* Seção 4: Rodapé (Grand Finale) */}
       <Footer />

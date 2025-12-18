@@ -3,6 +3,8 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Preloader from "@/components/ui/Preloader";
+import CookieBanner from "@/components/ui/CookieBanner";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 // Configuração Otimizada de Fontes (Padrão Next.js 2025)
 const inter = Inter({
@@ -19,7 +21,21 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Aesthetic Clinic | A Nova Era da Beleza",
-  description: "Tratamentos estéticos de alta performance com tecnologia de ponta.",
+  description: "Clínica de estética avançada especializada em harmonização facial, bioestimuladores e tecnologias a laser. Protocolos exclusivos em São Paulo.",
+  openGraph: {
+    title: "Aesthetic Clinic | A Nova Era da Beleza",
+    description: "Descubra sua melhor versão com nossos protocolos exclusivos de estética avançada.",
+    url: "https://aesthetic-clinic.vercel.app", // Substitua pelo seu domínio real depois
+    siteName: "Aesthetic Clinic",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aesthetic Clinic | A Nova Era da Beleza",
+    description: "Descubra sua melhor versão com nossos protocolos exclusivos.",
+  },
+  robots: "index, follow",
 };
 
 export default function RootLayout({
@@ -40,6 +56,12 @@ export default function RootLayout({
 
         {/* 5. Preloader Cinematográfico */}
         <Preloader />
+
+        {/* 6. Botão de Conversão Flutuante */}
+        <WhatsAppButton />
+
+        {/* 7. Aviso de Privacidade (Compliance) */}
+        <CookieBanner />
 
         {/* O conteúdo do site entra aqui */}
         {children}
