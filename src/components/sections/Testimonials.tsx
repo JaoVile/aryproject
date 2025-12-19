@@ -40,7 +40,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="depoimentos" className="py-20 md:py-32 bg-[#F9F7F2] relative overflow-hidden">
+    <section id="depoimentos" className="py-16 md:py-24 bg-[#F9F7F2] relative overflow-hidden">
       {/* Linha divisória sutil no topo */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
       

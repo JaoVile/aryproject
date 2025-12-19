@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
+import Protocols from "@/components/sections/protocols";
+import Products from "@/components/sections/Products";
 import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
@@ -24,7 +25,10 @@ export default function Home() {
       <Hero />
 
       {/* Seção 2: Bento Grid de Serviços */}
-      <Services />
+      <Protocols />
+
+      {/* Seção Extra: Vitrine de Produtos (Upsell) */}
+      <Products />
 
       {/* Seção 3: Storytelling (Sobre) */}
       <About />
