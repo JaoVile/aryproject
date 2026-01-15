@@ -1,41 +1,26 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "@/components/layout/SmoothScroll";
-import Preloader from "@/components/ui/Preloader";
-import CookieBanner from "@/components/ui/CookieBanner";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer"; // Importando o Rodapé
+import { CartProvider } from "@/context/CartContext";
+import ActiveBackground from "@/components/layout/ActiveBackground"; // Importando o Fundo Vivo
 
-// Configuração Otimizada de Fontes (Padrão Next.js 2025)
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-playfair",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Aesthetic Clinic | A Nova Era da Beleza",
-  description: "Clínica de estética avançada especializada em harmonização facial, bioestimuladores e tecnologias a laser. Protocolos exclusivos em São Paulo.",
-  openGraph: {
-    title: "Aesthetic Clinic | A Nova Era da Beleza",
-    description: "Descubra sua melhor versão com nossos protocolos exclusivos de estética avançada.",
-    url: "https://aesthetic-clinic.vercel.app", // Substitua pelo seu domínio real depois
-    siteName: "Aesthetic Clinic",
-    locale: "pt_BR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Aesthetic Clinic | A Nova Era da Beleza",
-    description: "Descubra sua melhor versão com nossos protocolos exclusivos.",
-  },
-  robots: "index, follow",
+  title: "A Loja do Sim | Boutique Íntima",
+  description: "Diga sim para você.",
 };
 
 export default function RootLayout({
@@ -44,28 +29,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="font-sans antialiased bg-background text-foreground overflow-x-hidden">
-        
-        {/* 3. A Camada de Textura (Cinematic Feel) */}
-        {/* Sem isso, o site perde o efeito de 'papel premium' */}
-        <div className="bg-noise" />
+    <html lang="pt-BR" className="scroll-smooth">
+      {/* 1. Removi 'bg-brand-dark' daqui porque o ActiveBackground já cuida da cor.
+          2. Adicionei 'relative' para posicionar os elementos filhos corretamente.
+      */}
+      <body className={`${inter.variable} ${playfair.variable} font-sans text-white antialiased selection:bg-brand-primary/30 selection:text-white relative bg-brand-dark`}>
+        <CartProvider>
+          {/* Camada 0: Fundo Vivo (desabilitado para performance) */}
+          {/* <ActiveBackground /> */}
+          
+          {/* Camada 50: Navbar (fixa no topo) */}
+          <Navbar />
+          
+          {/* Camada 10: Conteúdo Principal (para ficar acima do fundo) */}
+          <main className="relative z-10">
+            {children}
+          </main>
 
-        {/* 4. Motor de Scroll Suave */}
-        <SmoothScroll />
-
-        {/* 5. Preloader Cinematográfico */}
-        <Preloader />
-
-        {/* 6. Botão de Conversão Flutuante */}
-        <WhatsAppButton />
-
-        {/* 7. Aviso de Privacidade (Compliance) */}
-        <CookieBanner />
-
-        {/* O conteúdo do site entra aqui */}
-        {children}
-        
+          {/* Rodapé no final */}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

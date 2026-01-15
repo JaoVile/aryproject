@@ -1,81 +1,68 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
     id: 1,
-    name: "Sérum Revitalizante",
-    price: "R$ 189,00",
-    image: "/assets/revitalizante.webp", // Frasco minimalista
-    description: "Hidratação profunda com ácido hialurônico puro."
+    name: "Lubrificantes",
+    shapeClass: "rounded-t-[100px] rounded-b-[20px]", 
+    bgColor: "bg-[#E9D5FF]", 
+    image: "/assets/fotoproduto1.jpg", // <--- Atualizado para .jpg (sua foto cortada)
+    positionClass: "object-center",    // <--- Voltamos para o padrão (centro)
   },
   {
     id: 2,
-    name: "Creme Reparador Noturno",
-    price: "R$ 245,00",
-    image: "/assets/reparadornot.webp", // Pote de creme
-    description: "Regeneração celular intensiva enquanto você dorme."
+    name: "Brinquedos",
+    shapeClass: "rounded-full", 
+    bgColor: "bg-[#FBCFE8]", 
+    image: "/assets/fotoproduto2.avif",
+    positionClass: "object-center",
   },
   {
     id: 3,
-    name: "Protetor Solar Fluido",
-    price: "R$ 120,00",
-    image: "/assets/protetorsolar.webp", // Protetor solar
-    description: "Toque seco e alta proteção UVA/UVB para peles sensíveis."
-  }
+    name: "Comestíveis",
+    shapeClass: "rounded-t-[100px] rounded-b-[20px]", 
+    bgColor: "bg-[#BFDBFE]", 
+    image: "/assets/fotoproduto3.jpg",
+    positionClass: "object-center",
+  },
 ];
 
 export default function Products() {
   return (
-    <section id="produtos" className="py-20 md:py-32 bg-white">
+    <section className="py-24 bg-brand-dark relative z-10" id="produtos">
       <div className="container mx-auto px-6">
+        
         <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-4 block">
-            Home Care
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl text-foreground">
-            Prolongue seus <span className="italic text-primary">resultados.</span>
+          <h2 className="font-serif text-4xl md:text-5xl text-brand-primary mb-4">
+            Nossos Produtos
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 justify-items-center max-w-5xl mx-auto">
           {products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] mb-6 bg-stone-100">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                {/* Overlay com Botão */}
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                   <button className="bg-white text-stone-900 px-6 py-3 rounded-full font-medium text-sm flex items-center gap-2 hover:bg-accent transition-colors shadow-lg transform translate-y-4 group-hover:translate-y-0 duration-300">
-                     <ShoppingBag size={16} />
-                     Comprar no WhatsApp
-                   </button>
-                </div>
+            <Link href={`/shop`} key={product.id} className="group flex flex-col items-center relative">
+              <div className={`relative w-full max-w-sm h-80 ${product.shapeClass} ${product.bgColor} overflow-hidden shadow-lg group`}>
+                 
+                 <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className={`object-cover ${product.positionClass} transition-transform group-hover:scale-105`}
+                 />
+                 
+                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none"></div>
               </div>
               
-              <div className="text-center">
-                <h3 className="font-serif text-xl text-foreground mb-2">{product.name}</h3>
-                <p className="text-sm text-stone-500 font-light mb-3">{product.description}</p>
-                <p className="text-accent font-medium">{product.price}</p>
-              </div>
-            </motion.div>
+              <h3 className="mt-6 text-xl text-white font-sans tracking-widest uppercase group-hover:text-brand-primary transition-colors">
+                {product.name}
+              </h3>
+            </Link>
           ))}
         </div>
+
       </div>
     </section>
   );

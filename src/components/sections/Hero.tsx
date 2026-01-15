@@ -1,238 +1,108 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+
+const heroImages = [
+  {
+    src: "/assets/hero.avif",
+    alt: "Diga sim para você - Principal",
+    position: "object-top md:object-center",
+  },
+  {
+    src: "/assets/hero2.avif",
+    alt: "Sensualidade e olhar",
+    position: "object-center",
+  },
+  {
+    src: "/assets/hero3.avif",
+    alt: "Textura e pele",
+    position: "object-center",
+  }
+];
 
 export default function Hero() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Efeito Parallax: A imagem move mais devagar que o scroll
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section 
-      ref={ref} 
-      className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center"
-    >
-      
-      {/* Background Parallax */}
-      <motion.div 
-        style={{ y, opacity }}
-        className="absolute inset-0 z-0"
-      >
-        {/* Gradiente para escurecer a imagem e garantir legibilidade do texto */}
-        <div className="absolute inset-0 z-10 bg-black/30" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent" />
+    // Adicionei 'pt-20' para compensar a Navbar Fixa
+<section className="relative min-h-[100dvh] w-full flex flex-col md:flex-row bg-brand-dark overflow-hidden">      
+      {/* LADO ESQUERDO: IMAGENS */}
+      <div className="relative w-full md:w-[60%] h-[50vh] md:h-auto overflow-hidden z-0 group">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentIndex].src}
+              alt={heroImages[currentIndex].alt}
+              fill
+              priority
+              className={`object-cover ${heroImages[currentIndex].position}`} 
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* === SOLUÇÃO DO DESCONFORTO: VIGNETTE === */}
+        {/* Sombra interna em todas as bordas para "abraçar" a imagem */}
+        <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(24,10,18,0.9)] z-10 pointer-events-none"></div>
+
+        {/* Gradiente de fusão lateral (desktop) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-brand-dark z-10 hidden md:block"></div>
+
+        {/* Gradiente de fusão inferior (mobile) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/70 to-transparent z-10 md:hidden"></div>
         
-        <Image 
-          src="/assets/hero-bg2.jpg" 
-          alt="Mulher recebendo tratamento estético em ambiente de clínica" 
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </motion.div>
-
-      {/* Partículas Minimalistas (Realce Sutil) */}
-      <div className="absolute inset-0 z-30 overflow-hidden pointer-events-none">
-        <motion.div 
-          animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.5, 1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 left-1/4 w-3 h-3 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.8)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.4, 0.9, 0.4], y: [0, -20, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/3 right-1/3 w-4 h-4 bg-amber-200/80 rounded-full shadow-[0_0_25px_rgba(253,230,138,0.6)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.3, 0.8, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-1/4 right-1/4 w-2 h-2 bg-stone-100 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.8, 1.2, 0.8] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-stone-200/60 rounded-full blur-[1px]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.4, 0.8, 0.4], x: [0, 20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 0.5 }}
-          className="absolute top-[80%] left-[10%] w-2 h-2 bg-white/70 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.6)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.4, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-          className="absolute top-[10%] right-[20%] w-3 h-3 bg-amber-100/50 rounded-full blur-[0.5px]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-          className="absolute bottom-[50%] left-[45%] w-2 h-2 bg-stone-300 rounded-full shadow-[0_0_10px_rgba(231,229,228,0.7)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.1, 0.4, 0.1], y: [0, 30, 0] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "linear", delay: 4 }}
-          className="absolute top-[30%] right-[35%] w-4 h-4 bg-white/50 rounded-full blur-[2px]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.3, 1] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          className="absolute top-[15%] left-[15%] w-2 h-2 bg-amber-100/60 rounded-full shadow-[0_0_10px_rgba(253,230,138,0.4)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.1, 0.4, 0.1], y: [0, -15, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2.2 }}
-          className="absolute bottom-[20%] right-[10%] w-3 h-3 bg-white/40 rounded-full blur-[1px]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.3, 0.7, 0.3], x: [-10, 10, -10] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 1.8 }}
-          className="absolute top-[40%] left-[5%] w-1.5 h-1.5 bg-stone-200 rounded-full"
-        />
-        <motion.div 
-          animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.9, 1.1, 0.9] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3.5 }}
-          className="absolute top-[60%] right-[5%] w-2.5 h-2.5 bg-amber-50/50 rounded-full shadow-[0_0_12px_rgba(255,255,255,0.5)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.1, 0.5, 0.1] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          className="absolute bottom-[10%] left-[25%] w-2 h-2 bg-white/30 rounded-full"
-        />
-        <motion.div 
-          animate={{ opacity: [0.4, 0.8, 0.4], y: [0, 10, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 4.2 }}
-          className="absolute top-[25%] right-[45%] w-1 h-1 bg-stone-100 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.2, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-          className="absolute bottom-[40%] left-[8%] w-3 h-3 bg-amber-200/30 rounded-full blur-[2px]"
-        />
-        <motion.div 
-          animate={{ opacity: [0.3, 0.6, 0.3], x: [0, -20, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 2.8 }}
-          className="absolute top-[5%] left-[40%] w-2 h-2 bg-white/60 rounded-full"
-        />
+        {/* Noise overlay */}
+        <div className="absolute inset-0 z-20 opacity-[0.04] pointer-events-none mix-blend-overlay" 
+             style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
+        </div>
       </div>
 
-      {/* Conteúdo Principal */}
-      <div className="relative z-20 container mx-auto px-6 text-center text-white">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3,
-              },
-            },
-          }}
-        >
-          <motion.h1 
-            variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-tight drop-shadow-lg"
-          >
-            Estética <br /> <span className="italic font-light text-white/90">Natural</span> & Única
-          </motion.h1>
-          
-          <motion.p 
-            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }}
-            className="mt-6 text-lg text-white/90 max-w-2xl mx-auto"
-          >
-            Realce sua beleza autêntica com tratamentos personalizados e tecnologia de ponta.
-          </motion.p>
+      {/* LADO DIREITO: TEXTO */}
+      <div className="relative w-full md:w-[40%] h-[50vh] md:h-auto bg-brand-dark flex flex-col justify-center items-center text-center px-8 md:px-12 z-20">
+        
+        {/* Glow de fundo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] bg-brand-primary/10 blur-[100px] rounded-full pointer-events-none h-[300px]"></div>
 
-          <motion.div 
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
-            className="mt-10"
+        <div className="relative z-10 max-w-md">
+          <div>
+             <h1 className="font-serif text-5xl lg:text-7xl leading-tight text-white mb-6 drop-shadow-xl">
+                DIGA <br />
+                <span className="text-brand-primary italic relative px-2">“SIM”</span> <br />
+                <span className="text-white/90 font-light block mt-4 text-3xl lg:text-4xl tracking-wide">PARA VOCÊ</span>
+             </h1>
+          </div>
+
+          <p
+            className="font-sans text-brand-soft/70 text-sm md:text-base leading-relaxed mb-10 mix-blend-plus-lighter"
           >
-            <a href="#agendar" className="px-10 py-4 bg-white text-stone-900 rounded-full text-sm font-medium tracking-widest hover:bg-stone-200 transition-all shadow-lg">
-              AGENDAR CONSULTA
-            </a>
-          </motion.div>
-        </motion.div>
+            Celebre seu corpo, seus desejos e seu bem-estar com nossa curadoria exclusiva. A jornada começa aqui.
+          </p>
+
+          <div>
+            <Link href="#produtos">
+              <button className="px-10 py-4 bg-brand-primary text-white font-bold text-xs tracking-[0.2em] uppercase rounded shadow-lg hover:shadow-brand-primary/40 transition-all hover:-translate-y-1">
+                Explorar Coleção
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
-
-      {/* 
-        IMAGEM 1: Esquerda Superior (Destaque Maior)
-        Posicionada acima do background (z-10) mas abaixo do texto (z-20) se houver sobreposição.
-      */}
-      <motion.div
-        style={{ opacity }} // Aplica o fade-out ao scrollar
-        className="absolute top-[12%] left-[3%] md:top-[18%] md:left-[5%] z-10"
-      >
-        <motion.div
-          initial={{ x: -50 }}
-          animate={{ x: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          {/* O card inteiro flutua agora, mantendo a borda junto com a imagem */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="w-40 h-56 md:w-80 md:h-[30rem] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 relative"
-          >
-            <Image
-              src="/assets/hero-p1.jpg"
-              alt="Destaque estético principal"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 160px, 320px"
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* 
-        IMAGEM 2: Direita Inferior (Menor)
-      */}
-      <motion.div
-        style={{ opacity }} // Aplica o fade-out ao scrollar
-        className="absolute bottom-[12%] right-[3%] md:bottom-[18%] md:right-[5%] z-10"
-      >
-        <motion.div
-          initial={{ x: 50 }}
-          animate={{ x: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          {/* O card inteiro flutua agora */}
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="w-32 h-44 md:w-60 md:h-80 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 relative"
-          >
-            <Image
-              src="/assets/hero-p2.jpg"
-              alt="Destaque estético secundário"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 128px, 240px"
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/50"
-      >
-        <ArrowDown className="w-6 h-6" />
-      </motion.div>
 
     </section>
   );

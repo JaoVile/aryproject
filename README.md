@@ -1,33 +1,32 @@
-# Aesthetic Clinic | Quiet Luxury Template
+# A Loja do Sim | Boutique Íntima
 
-![Project Banner](public/hero-bg2.jpg)
+![Project Banner](public/assets/A%20loja%20do%20Sim%20(1).png)
 
-> Uma experiência digital imersiva para clínicas de estética de alto padrão, focada em **Quiet Luxury**, performance e conversão.
+> Diga sim para você. Uma experiência digital imersiva e elegante para o mercado adulto, focada em **discrição, confiança e na celebração do prazer.**
 
-Desenvolvido com **Next.js 14**, **TypeScript** e **Tailwind CSS**, este projeto redefine o padrão de sites institucionais com animações fluidas, otimização extrema e design sensorial.
+Desenvolvido com **Next.js 14**, **TypeScript** e **Tailwind CSS**, este projeto oferece uma vitrine sofisticada para produtos íntimos, com animações fluidas e um design sensorial que convida à exploração.
 
 ---
 
 ## ✨ Diferenciais & Features
 
 ### 🎨 Design & UX (Sensorial)
-- **Quiet Luxury UI:** Paleta de cores sofisticada (Off-white, Stone, Gold) e tipografia editorial.
+- **Dark & Seductive UI:** Paleta de cores envolvente (Vinho, Preto profundo, Rosa vibrante) e tipografia moderna que combina `Playfair Display` com `Inter`.
 - **Smooth Scroll (Lenis):** Rolagem "amanteigada" que simula a física de aplicativos nativos.
-- **Parallax Hero:** Efeito de profundidade na capa principal.
-- **Micro-interações:** Botões e elementos que reagem suavemente ao cursor.
-- **Preloader Cinematográfico:** Entrada dramática com contador de progresso.
+- **Animações com Framer Motion:** Micro-interações e transições de página que tornam a navegação mais fluida e agradável.
+- **Preloader Temático:** Uma entrada envolvente que prepara o usuário para a experiência.
 
 ### 🚀 Performance & SEO (Técnico)
-- **Next.js Image Optimization:** Imagens em formato WebP/AVIF com carregamento lazy e blur-up.
-- **SEO Otimizado:** Metadados Open Graph (WhatsApp/Instagram), Sitemap XML e Robots.txt configurados.
-- **PWA Ready:** Arquivo `manifest.ts` configurado para instalação em mobile (Add to Home Screen).
-- **Fonte Otimizada:** `next/font` para carregamento zero-layout-shift.
+- **Next.js Image Optimization:** Imagens em formato WebP/AVIF com carregamento `lazy` e `blur-up placeholder`.
+- **SEO Otimizado:** Metadados Open Graph (para compartilhamento em redes sociais), Sitemap XML e Robots.txt pré-configurados.
+- **PWA Ready:** Arquivo `manifest.ts` configurado para permitir a instalação do site no celular (Add to Home Screen).
+- **Fontes Otimizadas:** Uso do `next/font` para carregamento de fontes sem `layout shift`.
 
 ### 💼 Funcionalidades de Negócio
-- **Botão Flutuante WhatsApp:** Conversão direta sem poluir o design.
-- **FAQ Accordion:** Seção de perguntas frequentes para quebra de objeções.
-- **Cookie Consent:** Banner de privacidade em conformidade com LGPD.
-- **Bento Grid Services:** Apresentação moderna dos serviços.
+- **Catálogo de Produtos:** Apresentação elegante dos produtos, com foco nos detalhes e na qualidade.
+- **Botão Flutuante WhatsApp:** Canal direto para vendas e atendimento discreto.
+- **Verificação de Idade:** Modal de entrada para conformidade legal (+18).
+- **FAQ & Privacidade:** Seções claras sobre envio discreto, trocas e políticas de dados.
 
 ---
 
@@ -38,7 +37,7 @@ Desenvolvido com **Next.js 14**, **TypeScript** e **Tailwind CSS**, este projeto
 - **Estilização:** Tailwind CSS
 - **Animações:** Framer Motion
 - **Scroll:** Lenis
-- **Ícones:** Lucide React
+- **Ícones:** Lucide React & React Icons
 
 ---
 
@@ -47,7 +46,7 @@ Desenvolvido com **Next.js 14**, **TypeScript** e **Tailwind CSS**, este projeto
 1. **Clone o repositório:**
    ```bash
    git clone https://github.com/JaoVile/SEprojects.git
-   cd SEprojects
+   cd aryelleproject
    ```
 
 2. **Instale as dependências:**

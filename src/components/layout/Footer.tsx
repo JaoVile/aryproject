@@ -1,66 +1,93 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa"; // Instale: npm install react-icons
 
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-background pt-16 md:pt-24 pb-12 overflow-hidden">
-      <div className="container mx-auto px-6">
+    <footer className="bg-brand-dark border-t border-brand-primary/20 pt-16 md:pt-24 pb-12 overflow-hidden relative">
+      <div className="container mx-auto px-6 relative z-10">
         
-        {/* Chamada Principal */}
-        <div className="mb-20">
+        {/* Chamada Principal (Alinhada ao tom da marca) */}
+        <div className="mb-16 text-center md:text-left">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif text-4xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8 text-center md:text-left"
+            className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight text-white mb-4"
           >
-            Sua melhor versão <br />
-            <span className="text-primary italic">Sua renovação começa aqui.</span>
+            Seu prazer, <br />
+            <span className="text-brand-primary italic">nossa prioridade.</span>
           </motion.h2>
+          <p className="text-brand-soft/60 font-sans max-w-md mx-auto md:mx-0">
+             Explore um universo de sensações com segurança, discrição e uma curadoria pensada para você.
+          </p>
         </div>
 
         {/* Grid de Informações */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-12 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-white/10 pt-12 text-center md:text-left">
           
+          {/* Coluna 1: Institucional */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Contato</h3>
-            <p className="text-lg font-light text-white/80 mb-2">+55 11 99999-9999</p>
-            <p className="text-lg font-light text-white/80">contato@aesthetic.com.br</p>
+            <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">A Loja</h3>
+            <ul className="space-y-3">
+               <li><Link href="/sobre" className="text-brand-soft/70 hover:text-white transition-colors">Quem Somos</Link></li>
+               <li><Link href="/produtos" className="text-brand-soft/70 hover:text-white transition-colors">Nossos Produtos</Link></li>
+               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Blog</Link></li>
+            </ul>
           </div>
 
+          {/* Coluna 2: Ajuda */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Endereço</h3>
-            <p className="text-lg font-light text-white/80 mb-2">Av. Faria Lima, 0000</p>
-            <p className="text-lg font-light text-white/80">Jardim Paulistano, São Paulo</p>
+            <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Ajuda</h3>
+            <ul className="space-y-3">
+               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Envio Discreto</Link></li>
+               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Trocas e Devoluções</Link></li>
+               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Privacidade (LGPD)</Link></li>
+            </ul>
           </div>
 
+          {/* Coluna 3: Contato */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Social</h3>
-            <div className="flex flex-col gap-2 items-center md:items-start">
-              {["Instagram", "LinkedIn", "WhatsApp"].map((social) => (
-                <a key={social} href="#" className="text-lg font-light text-white/80 hover:text-primary transition-colors w-fit">
-                  {social}
-                </a>
-              ))}
+            <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Fale Conosco</h3>
+            <p className="text-brand-soft/70 mb-2">+55 (11) 99999-9999</p>
+            <p className="text-brand-soft/70 mb-4">contato@alojadosim.com.br</p>
+            <div className="flex justify-center md:justify-start gap-4 mt-4">
+               {/* Ícones Sociais (Se der erro sem react-icons, use texto simples ou SVG) */}
+               <Link href="#" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                  <FaInstagram size={20} />
+               </Link>
+               <Link href="#" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                  <FaWhatsapp size={20} />
+               </Link>
             </div>
+          </div>
+
+          {/* Coluna 4: Pagamento (Simulação visual) */}
+          <div>
+             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Pagamento</h3>
+             <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                <div className="px-3 py-1 bg-white/5 rounded border border-white/10 text-xs text-brand-soft">PIX</div>
+                <div className="px-3 py-1 bg-white/5 rounded border border-white/10 text-xs text-brand-soft">Crédito</div>
+                <div className="px-3 py-1 bg-white/5 rounded border border-white/10 text-xs text-brand-soft">Boleto</div>
+             </div>
           </div>
 
         </div>
 
         {/* Copyright */}
-        <div className="mt-20 flex flex-col md:flex-row justify-between items-center gap-y-4 gap-x-8 text-xs text-white/40 font-light">
-          <p>© 2025 Aesthetic Clinic. Todos os direitos reservados.</p>
-          <p className="text-center md:text-right">
-            Desenvolvido com ♡ por <a href="https://github.com/JaoVile" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-white transition-colors">
-              João Marcos F. Vilela
-            </a>
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-soft/40">
+          <p>© 2025 A Loja do Sim. Todos os direitos reservados.</p>
+          <p>CNPJ: 00.000.000/0001-00</p>
+          <p>
+            Desenvolvido por <a href="#" className="text-brand-primary hover:underline">Seu Nome/Agência</a>
           </p>
         </div>
 
-        {/* Texto Gigante Decorativo */}
-        <div className="w-full text-center mt-24 opacity-5 select-none pointer-events-none">
-          <span className="text-[12vw] font-serif leading-none text-white">AESTHETIC</span>
+        {/* Texto Gigante Decorativo (Marca D'água) */}
+        <div className="absolute bottom-0 left-0 w-full text-center opacity-[0.03] select-none pointer-events-none overflow-hidden">
+          <span className="text-[15vw] font-serif leading-none text-white whitespace-nowrap">LOJA DO SIM</span>
         </div>
       </div>
     </footer>
