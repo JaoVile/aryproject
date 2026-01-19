@@ -1,26 +1,45 @@
 "use client";
 
-import { useCart } from "@/hooks/useCart";
+// 1. IMPORTAR useCart e CartItem DO ARQUIVO CORRETO
+import { useCart, CartItem } from "@/context/CartContext"; 
 import Image from "next/image";
-// 1. Adicionei 'Variants' na importação
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, clearCart, increaseQuantity, decreaseQuantity, isCartOpen, toggleCart, totalPrice } = useCart();
+  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, isCartOpen, toggleCart, totalPrice } = useCart();
   const router = useRouter();
 
   const handleCheckout = () => {
+    const messageHeader = `Olá! Gostaria de finalizar meu pedido na Loja do Sim:%0A%0A`;
+    
+    // 2. TIPAGEM EXPLÍCITA AQUI: (item: CartItem)
+    const itemsList = cartItems.map((item: CartItem) => 
+      `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2)})`
+    ).join('%0A');
+    
+    const total = `%0A%0A*Valor Total: R$ ${totalPrice.toFixed(2)}*`;
+    const footer = `%0A%0AGostaria de saber as formas de pagamento e envio.`;
+
+    const phoneNumber = "558799699843"; 
+    const fullMessage = `${messageHeader}${itemsList}${total}${footer}`;
+    
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${fullMessage}`;
+
+    window.open(whatsappLink, '_blank');
     toggleCart();
-    router.push('/checkout');
   };
 
-  // 2. Adicionei a tipagem ': Variants' aqui. 
-  // Isso diz ao TypeScript que "easeInOut" é um valor válido para animação.
   const cartVariants: Variants = {
     hidden: { x: "100%" },
-    visible: { x: 0, transition: { duration: 0.3, ease: "easeInOut" } },
-    exit: { x: "100%", transition: { duration: 0.3, ease: "easeInOut" } },
+    visible: { 
+      x: 0, 
+      transition: { duration: 0.3, ease: "easeInOut" } 
+    },
+    exit: { 
+      x: "100%", 
+      transition: { duration: 0.3, ease: "easeInOut" } 
+    },
   };
 
   return (
@@ -39,6 +58,7 @@ export default function Cart() {
             animate="visible"
             exit="exit"
             className="w-full max-w-md h-full bg-brand-card shadow-2xl flex flex-col border-l border-white/10"
+            style={{ backgroundColor: '#12050b' }} 
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6 flex items-center justify-between border-b border-white/10">
@@ -57,7 +77,8 @@ export default function Cart() {
             ) : (
               <>
                 <div className="flex-grow overflow-y-auto p-6 space-y-4">
-                  {cartItems.map((item) => (
+                  {/* 3. TIPAGEM EXPLÍCITA AQUI TAMBÉM */}
+                  {cartItems.map((item: CartItem) => (
                     <div key={item.id} className="flex items-start justify-between relative bg-white/5 p-4 rounded-lg">
                       <div className="flex items-center gap-4">
                         <div className="relative w-16 h-16 rounded-md overflow-hidden border border-white/10">

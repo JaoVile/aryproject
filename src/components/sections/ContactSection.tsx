@@ -26,7 +26,9 @@ export default function ContactSection() {
                    </div>
                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-primary">Telefone</p>
                  </div>
-                 <p className="text-2xl lg:text-3xl font-bold pl-12">(47) 99999-9999</p>
+                 <a href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="text-2xl lg:text-3xl font-bold pl-12 hover:text-brand-primary transition-colors block">
+                   (87) 9969-9843
+                 </a>
               </div>
 
               {/* BLOCO 2: INSTAGRAM */}

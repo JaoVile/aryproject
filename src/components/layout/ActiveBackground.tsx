@@ -1,58 +1,24 @@
 "use client";
 
-import { motion, Transition } from "framer-motion";
-
+// Versão Otimizada: Usa CSS keyframes nativos em vez de Framer Motion pesado
 export default function ActiveBackground() {
-  // CORREÇÃO: Adicionei o tipo ': Transition' aqui para o TypeScript entender
-  const transitionSettings: Transition = {
-    duration: 20,
-    repeat: Infinity,
-    repeatType: "reverse",
-    ease: "easeInOut",
-  };
-
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-       {/* A cor de fundo base SÓLIDA para evitar buracos */}
-       <div className="absolute inset-0 bg-brand-dark"></div>
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#12050b]">
+      
+      {/* Luz 1 - Rosa */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-primary/20 rounded-full blur-[80px] animate-pulse-slow opacity-60"></div>
+      
+      {/* Luz 2 - Roxo */}
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#8B5CF6]/20 rounded-full blur-[80px] animate-pulse-slow opacity-60" style={{ animationDelay: "2s" }}></div>
 
-      {/* --- LUZ ORGÂNICA 1 (Rosa/Primária) --- */}
-      <motion.div
-        initial={{ opacity: 0.4, x: "-20%", y: "10%", scale: 1 }}
-        animate={{ 
-            opacity: [0.3, 0.5, 0.3],
-            x: ["-20%", "10%", "-20%"],
-            y: ["10%", "-10%", "10%"],
-            scale: [1, 1.2, 1],
-        }}
-        // Aqui o erro sumirá porque transitionSettings agora tem o tipo correto
-        transition={transitionSettings}
-        className="absolute top-0 left-0 w-[800px] md:w-[1200px] h-[800px] md:h-[1200px] bg-brand-primary/30 rounded-full mix-blend-screen filter blur-[120px] md:blur-[180px]"
-      />
-
-      {/* --- LUZ ORGÂNICA 2 (Roxo/Secundária) --- */}
-      <motion.div
-        initial={{ opacity: 0.3, x: "20%", y: "-20%", scale: 1.1 }}
-        animate={{ 
-            opacity: [0.3, 0.4, 0.3],
-            x: ["20%", "-10%", "20%"], 
-            y: ["-20%", "20%", "-20%"],
-            scale: [1.1, 0.9, 1.1],
-        }}
-        // O spread operator (...) agora funciona porque os tipos batem
-        transition={{ ...transitionSettings, delay: 2 }} 
-        className="absolute bottom-0 right-0 w-[700px] md:w-[1000px] h-[700px] md:h-[1000px] bg-[#8B5CF6]/30 rounded-full mix-blend-screen filter blur-[150px] md:blur-[200px]"
-      />
-
-      {/* --- CAMADA DE TEXTURA (Noise) --- */}
+      {/* Camada de Noise (Textura) - Imagem estática é muito mais leve */}
       <div 
-        className="absolute inset-0 z-[1] opacity-[0.05] mix-blend-overlay" 
+        className="absolute inset-0 z-[1] opacity-[0.04] mix-blend-overlay" 
         style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}
       ></div>
       
-      {/* --- VIGNETTE GLOBAL --- */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(24,10,18,0.8)_100%)] z-[2]"></div>
-
+      {/* Vignette para focar no centro */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(18,5,11,0.8)_100%)] z-[2]"></div>
     </div>
   );
 }

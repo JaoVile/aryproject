@@ -38,7 +38,7 @@ export default function PromoSection() {
             </p>
 
             {/* BOTÃO BRANCO EXATO */}
-            <Link href="/produtos">
+            <Link href="/shop">
               <button className="bg-white text-brand-primary font-bold py-4 px-12 rounded-full uppercase tracking-widest shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1">
                 EXPLORE AGORA
               </button>

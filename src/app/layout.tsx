@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer"; // Importando o Rodapé
 import { CartProvider } from "@/context/CartContext";
 import ActiveBackground from "@/components/layout/ActiveBackground"; // Importando o Fundo Vivo
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -48,6 +49,9 @@ export default function RootLayout({
 
           {/* Rodapé no final */}
           <Footer />
+          
+          {/* Botão Flutuante WhatsApp */}
+          <WhatsAppButton />
         </CartProvider>
       </body>
     </html>

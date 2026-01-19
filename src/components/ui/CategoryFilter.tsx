@@ -7,9 +7,8 @@ interface CategoryFilterProps {
   setSelectedCategories: (categories: string[]) => void;
 }
 
-// NOTE: Using product names as categories for now. 
-// A dedicated category field in the product data would be better.
-const categories = [...new Set(products.map((p) => p.name))];
+// Usando o campo category correto dos produtos
+const categories = [...new Set(products.map((p) => p.category))].sort();
 
 export default function CategoryFilter({
   selectedCategories,
@@ -27,14 +26,14 @@ export default function CategoryFilter({
       <h3 className="text-lg font-semibold text-white mb-4">Categorias</h3>
       <div className="space-y-2">
         {categories.map((category) => (
-          <label key={category} className="flex items-center space-x-2 text-white/80 cursor-pointer">
+          <label key={category} className="flex items-center space-x-2 text-white/80 cursor-pointer hover:text-white transition-colors">
             <input
               type="checkbox"
-              className="form-checkbox h-5 w-5 bg-brand-dark border-white/20 rounded text-brand-primary focus:ring-brand-primary"
+              className="h-5 w-5 bg-brand-dark border-white/20 rounded text-brand-primary focus:ring-brand-primary focus:ring-2 cursor-pointer"
               checked={selectedCategories.includes(category)}
               onChange={() => handleCategoryChange(category)}
             />
-            <span>{category}</span>
+            <span className="text-sm">{category}</span>
           </label>
         ))}
       </div>

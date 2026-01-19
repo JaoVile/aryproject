@@ -74,7 +74,7 @@ export default function Hero() {
       </div>
 
       {/* LADO DIREITO: TEXTO */}
-      <div className="relative w-full md:w-[40%] h-[50vh] md:h-auto bg-brand-dark flex flex-col justify-center items-center text-center px-8 md:px-12 z-20">
+      <div className="relative w-full md:w-[40%] h-[50vh] md:h-auto bg-brand-dark flex flex-col justify-center items-center text-center px-8 md:px-12 z-10">
         
         {/* Glow de fundo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] bg-brand-primary/10 blur-[100px] rounded-full pointer-events-none h-[300px]"></div>
@@ -95,7 +95,7 @@ export default function Hero() {
           </p>
 
           <div>
-            <Link href="#produtos">
+            <Link href="/shop">
               <button className="px-10 py-4 bg-brand-primary text-white font-bold text-xs tracking-[0.2em] uppercase rounded shadow-lg hover:shadow-brand-primary/40 transition-all hover:-translate-y-1">
                 Explorar Coleção
               </button>

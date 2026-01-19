@@ -33,8 +33,8 @@ export default function Footer() {
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">A Loja</h3>
             <ul className="space-y-3">
                <li><Link href="/sobre" className="text-brand-soft/70 hover:text-white transition-colors">Quem Somos</Link></li>
-               <li><Link href="/produtos" className="text-brand-soft/70 hover:text-white transition-colors">Nossos Produtos</Link></li>
-               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Blog</Link></li>
+               <li><Link href="/shop" className="text-brand-soft/70 hover:text-white transition-colors">Nossa Loja</Link></li>
+               <li><Link href="/#produtos" className="text-brand-soft/70 hover:text-white transition-colors">Destaques</Link></li>
             </ul>
           </div>
 
@@ -51,14 +51,16 @@ export default function Footer() {
           {/* Coluna 3: Contato */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Fale Conosco</h3>
-            <p className="text-brand-soft/70 mb-2">+55 (11) 99999-9999</p>
+            <a href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="text-brand-soft/70 mb-2 hover:text-brand-primary transition-colors block">
+              +55 (87) 9969-9843
+            </a>
             <p className="text-brand-soft/70 mb-4">contato@alojadosim.com.br</p>
             <div className="flex justify-center md:justify-start gap-4 mt-4">
-               {/* Ícones Sociais (Se der erro sem react-icons, use texto simples ou SVG) */}
-               <Link href="#" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+               {/* Ícones Sociais */}
+               <Link href="https://instagram.com/alojadosim.shop" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
                   <FaInstagram size={20} />
                </Link>
-               <Link href="#" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+               <Link href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
                   <FaWhatsapp size={20} />
                </Link>
             </div>

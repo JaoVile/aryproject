@@ -1,7 +1,9 @@
-"use client"
+"use client";
+
 import Shop from '@/components/sections/ShopSection';
 import Cart from '@/components/ui/Cart';
-import { useCart } from '@/hooks/useCart';
+// CORREÇÃO: Importar do Context
+import { useCart } from '@/context/CartContext'; 
 import { useState, useEffect } from 'react';
 
 export default function ShopPage() {

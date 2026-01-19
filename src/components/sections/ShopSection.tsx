@@ -28,7 +28,7 @@ export default function ShopSection() {
     )
     .filter((product) => {
       if (selectedCategories.length === 0) return true;
-      return selectedCategories.includes(product.name);
+      return selectedCategories.includes(product.category);
     })
     .sort((a, b) => {
       switch (sortOption) {
@@ -57,10 +57,10 @@ export default function ShopSection() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="font-serif text-4xl md:text-5xl text-brand-primary mb-4">
-            Nossos produtos
+            Nossa Loja Completa
           </h2>
           <p className="text-white/80 max-w-2xl mx-auto">
-            Uma seleção de escolhida só para você.
+            Explore nossa curadoria exclusiva e encontre o produto perfeito para você.
           </p>
         </div>
 
@@ -97,9 +97,19 @@ export default function ShopSection() {
                     <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {/* AQUI ESTAVA O ERRO - CORRIGIDO ABAIXO */}
                     {filteredAndSortedProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard 
+                            key={product.id} 
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            image={product.image}
+                            category={product.category}
+                        />
                     ))}
+                    {/* FIM DA CORREÇÃO */}
+                    
                     {filteredAndSortedProducts.length === 0 && (
                         <p className="text-white/70 text-center col-span-full py-12">Nenhum produto encontrado com os filtros selecionados.</p>
                     )}
