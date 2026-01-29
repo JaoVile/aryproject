@@ -43,8 +43,9 @@ export default function About() {
                     src="/assets/fotodois.jpg"
                     alt="Permita-se"
                     fill
+                    quality={90}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
-                    unoptimized
                  />
                  {/* === Overlay para escurecer a imagem === */}
                  {/* bg-brand-dark/40 significa 40% de opacidade da cor escura */}

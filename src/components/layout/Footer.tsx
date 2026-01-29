@@ -42,26 +42,22 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Ajuda</h3>
             <ul className="space-y-3">
-               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Envio Discreto</Link></li>
-               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Trocas e Devoluções</Link></li>
-               <li><Link href="#" className="text-brand-soft/70 hover:text-white transition-colors">Privacidade (LGPD)</Link></li>
+               <li><Link href="/ajuda" className="text-brand-soft/70 hover:text-white transition-colors">Envio Discreto</Link></li>
+               <li><Link href="/ajuda" className="text-brand-soft/70 hover:text-white transition-colors">Trocas e Devoluções</Link></li>
+               <li><Link href="/ajuda" className="text-brand-soft/70 hover:text-white transition-colors">Privacidade (LGPD)</Link></li>
             </ul>
           </div>
 
           {/* Coluna 3: Contato */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-primary mb-6">Fale Conosco</h3>
-            <a href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="text-brand-soft/70 mb-2 hover:text-brand-primary transition-colors block">
-              +55 (87) 9969-9843
-            </a>
-            <p className="text-brand-soft/70 mb-4">contato@alojadosim.com.br</p>
             <div className="flex justify-center md:justify-start gap-4 mt-4">
                {/* Ícones Sociais */}
-               <Link href="https://instagram.com/alojadosim.shop" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                  <FaInstagram size={20} />
+               <Link href="https://www.instagram.com/alojadosim_sexshop6/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                  <FaInstagram size={28} />
                </Link>
-               <Link href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                  <FaWhatsapp size={20} />
+               <Link href="https://wa.me/558799699843" target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                  <FaWhatsapp size={28} />
                </Link>
             </div>
           </div>
@@ -81,9 +77,8 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-soft/40">
           <p>© 2025 A Loja do Sim. Todos os direitos reservados.</p>
-          <p>CNPJ: 00.000.000/0001-00</p>
           <p>
-            Desenvolvido por <a href="#" className="text-brand-primary hover:underline">Seu Nome/Agência</a>
+            Desenvolvido por <a href="https://www.linkedin.com/in/joao-marcos-ferreira-vilela/" target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline">João Vilela</a>
           </p>
         </div>
 

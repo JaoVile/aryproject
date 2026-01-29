@@ -77,38 +77,47 @@ export default function Cart() {
             ) : (
               <>
                 <div className="flex-grow overflow-y-auto p-6 space-y-4">
-                  {/* 3. TIPAGEM EXPLÍCITA AQUI TAMBÉM */}
-                  {cartItems.map((item: CartItem) => (
-                    <div key={item.id} className="flex items-start justify-between relative bg-white/5 p-4 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <div className="relative w-16 h-16 rounded-md overflow-hidden border border-white/10">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex-grow">
-                          <p className="font-semibold text-white">{item.name}</p>
-                          <div className="flex items-center mt-2">
-                            <button onClick={() => decreaseQuantity(item.id)} className="px-2 py-0.5 bg-white/10 rounded-md text-white/80 hover:bg-white/20">-</button>
-                            <p className="text-sm text-white/70 px-3">{item.quantity}</p>
-                            <button onClick={() => increaseQuantity(item.id)} className="px-2 py-0.5 bg-white/10 rounded-md text-white/80 hover:bg-white/20">+</button>
+                  <AnimatePresence mode="popLayout">
+                    {/* 3. TIPAGEM EXPLÍCITA AQUI TAMBÉM */}
+                    {cartItems.map((item: CartItem) => (
+                      <motion.div 
+                        key={item.id} 
+                        layout
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                        className="flex items-start justify-between relative bg-white/5 p-4 rounded-lg"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="relative w-16 h-16 rounded-md overflow-hidden border border-white/10">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="flex-grow">
+                            <p className="font-semibold text-white">{item.name}</p>
+                            <div className="flex items-center mt-2">
+                              <button onClick={() => decreaseQuantity(item.id)} className="px-2 py-0.5 bg-white/10 rounded-md text-white/80 hover:bg-white/20">-</button>
+                              <p className="text-sm text-white/70 px-3">{item.quantity}</p>
+                              <button onClick={() => increaseQuantity(item.id)} className="px-2 py-0.5 bg-white/10 rounded-md text-white/80 hover:bg-white/20">+</button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <p className="font-semibold text-white text-lg">R$ {(item.price * item.quantity).toFixed(2)}</p>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-white/50 hover:text-brand-primary transition-colors absolute top-2 right-2"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
+                        <p className="font-semibold text-white text-lg">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-white/50 hover:text-brand-primary transition-colors absolute top-2 right-2"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
                 </div>
                 <div className="p-6 border-t border-white/10">
                   <div className="flex justify-between items-center text-lg font-semibold text-white mb-4">

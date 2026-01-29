@@ -1,8 +1,8 @@
 "use client";
 
-import { products } from "@/constants/products";
+import { products as staticProducts, type Product } from "@/constants/products";
 import ProductCard from "../ui/ProductCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SearchBar from "../ui/SearchBar";
 import CategoryFilter from "../ui/CategoryFilter";
 import SortDropdown from "../ui/SortDropdown";
@@ -10,9 +10,25 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function ShopSection() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState<Product[]>(staticProducts);
   const [sortOption, setSortOption] = useState("default");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          const data = await res.json();
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar produtos da loja:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     if (isFilterOpen) {
@@ -22,7 +38,7 @@ export default function ShopSection() {
     }
   }, [isFilterOpen]);
 
-  const filteredAndSortedProducts = products
+  const filteredAndSortedProducts = useMemo(() => products
     .filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -43,7 +59,7 @@ export default function ShopSection() {
         default:
           return 0;
       }
-    });
+    }), [products, searchTerm, selectedCategories, sortOption]);
   
   const Filters = () => (
     <aside className="space-y-6">

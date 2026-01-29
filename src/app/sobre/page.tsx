@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function SobrePage() {
@@ -26,72 +25,7 @@ export default function SobrePage() {
         </div>
 
         {/* Background Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
-      </section>
-
-      {/* Fundadora Section */}
-      <section className="py-16 sm:py-20 md:py-24 bg-brand-dark relative z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
-            
-            {/* Foto da Fundadora */}
-            <motion.div 
-              className="w-full lg:w-1/2 relative flex justify-center order-2 lg:order-1"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="relative w-full max-w-md aspect-[3/4]">
-                <div className="absolute inset-0 rounded-[50%] overflow-hidden border-2 border-brand-primary/20 shadow-2xl">
-                  <Image
-                    src="/assets/fotodois.jpg"
-                    alt="Fundadora da Loja do Sim"
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
-                  {/* Overlay sutil */}
-                  <div className="absolute inset-0 bg-brand-dark/20 mix-blend-multiply"></div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Texto sobre a Fundadora */}
-            <motion.div 
-              className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left order-1 lg:order-2"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white mb-4 sm:mb-6 leading-tight">
-                Conheça a <span className="text-brand-primary italic">fundadora</span>
-              </h2>
-              
-              <div className="space-y-4 sm:space-y-6 text-brand-soft/70 font-sans text-sm sm:text-base leading-relaxed">
-                <p>
-                  [NOME DA FUNDADORA], apaixonada por empoderamento feminino e bem-estar, 
-                  fundou a Loja do Sim com um propósito claro: criar um espaço seguro, 
-                  acolhedor e livre de julgamentos para que todas as pessoas possam 
-                  explorar sua sexualidade com confiança.
-                </p>
-                
-                <p>
-                  Com uma visão humanizada e empática, acreditamos que a intimidade é 
-                  um direito de todos e que cada pessoa merece ter acesso a produtos 
-                  de qualidade que tragam prazer e bem-estar à sua vida.
-                </p>
-                
-                <p className="text-brand-primary/80 italic">
-                  "Meu sonho sempre foi criar um lugar onde as pessoas se sintam 
-                  livres para serem quem são, sem tabus ou preconceitos. A Loja do Sim 
-                  é mais que uma loja - é um movimento de autoconhecimento e liberdade."
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-primary/10 blur-[120px] rounded-full pointer-events-none transform-gpu"></div>
       </section>
 
       {/* História da Loja */}
@@ -112,7 +46,7 @@ export default function SobrePage() {
               <p>
                 A Loja do Sim nasceu de uma necessidade genuína: criar um espaço que 
                 celebrasse a sexualidade de forma natural, respeitosa e inclusiva. 
-                Em [ANO], percebemos que o mercado brasileiro ainda carregava muitos 
+                Em 2025, percebemos que o mercado brasileiro ainda carregava muitos 
                 tabus quando se tratava de produtos íntimos e prazer pessoal.
               </p>
               
@@ -124,7 +58,7 @@ export default function SobrePage() {
               </p>
               
               <p>
-                Hoje, somos uma referência em [LOCALIDADE], atendendo pessoas de todas 
+                Hoje, somos uma referência em Lajedo, atendendo pessoas de todas 
                 as idades e orientações, sempre com discrição, respeito e profissionalismo. 
                 Nossa curadoria é feita com muito cuidado, priorizando marcas que valorizam 
                 a qualidade, a segurança e o prazer.

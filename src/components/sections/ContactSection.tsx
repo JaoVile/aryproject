@@ -42,7 +42,7 @@ export default function ContactSection() {
                    </div>
                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-primary">Instagram</p>
                  </div>
-                 <a href="https://instagram.com/alojadosim.shop" target="_blank" rel="noopener noreferrer" className="text-2xl lg:text-3xl font-bold pl-12 hover:text-brand-primary transition-colors">
+                 <a href="https://www.instagram.com/alojadosim_sexshop6/" target="_blank" rel="noopener noreferrer" className="text-2xl lg:text-3xl font-bold pl-12 hover:text-brand-primary transition-colors">
                    @alojadosim.shop
                  </a>
               </div>
@@ -68,7 +68,7 @@ export default function ContactSection() {
                 mas mantive aqui com a correção de renderização */}
             <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl transform-gpu">
                <Image
-                 src="/assets/fotocinco.jpg"
+                 src="/assets/fotocinco.png"
                  alt="Entre em contato conosco"
                  fill
                  quality={100} // <--- Força qualidade máxima

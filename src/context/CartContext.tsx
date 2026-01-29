@@ -58,7 +58,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
-    setIsCartOpen(true);
+    // setIsCartOpen(true); // Removido para não abrir automaticamente
   };
 
   const removeFromCart = (id: number) => {
@@ -77,12 +77,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartItems((prev) =>
       prev.map((item) => {
         if (item.id === id) {
-          return item.quantity > 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item;
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
-      })
+      }).filter((item) => item.quantity > 0) // Remove o item se a quantidade for 0
     );
   };
 

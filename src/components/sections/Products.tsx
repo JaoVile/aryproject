@@ -2,9 +2,27 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { products } from "@/constants/products";
+import { products as staticProducts } from "@/constants/products";
+import { useState, useEffect } from "react";
 
 export default function Products() {
+  const [products, setProducts] = useState(staticProducts);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          const data = await res.json();
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <section className="py-24 bg-brand-dark relative z-10" id="produtos">
       <div className="container mx-auto px-6">

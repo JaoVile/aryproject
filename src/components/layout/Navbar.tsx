@@ -1,111 +1,130 @@
+// c:\Projetos\Workana\Sexshop\aryelleproject\src\components\layout\Navbar.tsx
+
 "use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useCart } from "@/context/CartContext";
+import { ShoppingBag, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag } from "lucide-react";
-// CORREÇÃO: Importar do Context
-import { useCart } from "@/context/CartContext"; 
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { toggleCart, cartItems } = useCart(); // Agora funciona corretamente
+  const { cartItems } = useCart();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBumped, setIsBumped] = useState(false);
+  const pathname = usePathname();
 
-  // Calcula a quantidade total de itens (soma das quantidades)
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const itemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  // Lógica: Mostrar carrinho sempre na loja, ou apenas se tiver itens fora dela
+  const isShopPage = pathname === "/" || pathname === "/shop";
+  const showCartButton = isShopPage || itemCount > 0;
+
+  // Efeito de "pulo" no ícone quando adiciona item
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    if (itemCount === 0) return;
+    setIsBumped(true);
+    const timer = setTimeout(() => setIsBumped(false), 300);
+    return () => clearTimeout(timer);
+  }, [itemCount]);
+
+  // Detectar scroll para mudar o fundo da navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Início", href: "/" },
-    { name: "Sobre", href: "/sobre" },
-    { name: "Loja", href: "/shop" },
-    { name: "Contato", href: "/#contato" },
-  ];
-
+  // Fundo escuro se rolou a página OU se o menu mobile estiver aberto (para o X ficar visível)
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-brand-dark/80 backdrop-blur-md py-4 border-b border-white/5 shadow-lg"
-          : "bg-transparent py-6"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        (isScrolled || isMobileMenuOpen) ? "bg-brand-dark/95 backdrop-blur-md py-3 shadow-lg border-b border-white/5" : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-serif text-brand-primary tracking-widest relative z-50 hover:opacity-80 transition-opacity">
-          LOJA DO SIM
+      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="font-serif text-2xl sm:text-3xl text-white font-bold tracking-tighter hover:opacity-90 transition-opacity">
+          Loja do <span className="text-brand-primary italic">Sim</span>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm uppercase tracking-widest text-white/80 hover:text-brand-primary transition-colors font-medium"
-            >
-              {link.name}
-            </Link>
-          ))}
-          
-          <button 
-            onClick={toggleCart}
-            className="relative p-2 text-white hover:text-brand-primary transition-colors group"
-          >
-            <ShoppingBag size={24} strokeWidth={1.5} />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-brand-primary text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                {totalItems}
-              </span>
-            )}
-          </button>
+          <Link href="/" className="text-white/80 hover:text-brand-primary transition-colors text-sm uppercase tracking-widest font-medium">Início</Link>
+          <Link href="/sobre" className="text-white/80 hover:text-brand-primary transition-colors text-sm uppercase tracking-widest font-medium">Sobre</Link>
+          <Link href="/#produtos" className="text-white/80 hover:text-brand-primary transition-colors text-sm uppercase tracking-widest font-medium">Produtos</Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4 z-50">
-          <button 
-            onClick={toggleCart}
-            className="relative p-1 text-white hover:text-brand-primary transition-colors"
-          >
-            <ShoppingBag size={24} />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-brand-primary text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
-                {totalItems}
-              </span>
+        {/* Actions */}
+        <div className="flex items-center gap-4">
+          {/* Cart Button Otimizado */}
+          <AnimatePresence>
+            {showCartButton && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+              >
+                <Link href="/checkout" className="relative group p-2 block" aria-label="Carrinho de Compras">
+                  <motion.div
+                    animate={{ scale: isBumped ? 1.2 : 1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <ShoppingBag className={`w-6 h-6 transition-colors ${itemCount > 0 ? 'text-brand-primary' : 'text-white group-hover:text-brand-primary'}`} />
+                  </motion.div>
+                  
+                  <AnimatePresence>
+                    {itemCount > 0 && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                        className="absolute -top-1 -right-1 bg-brand-primary text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand-dark shadow-sm"
+                      >
+                        {itemCount}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Link>
+              </motion.div>
             )}
-          </button>
+          </AnimatePresence>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="text-white">
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden text-white p-2 hover:text-brand-primary transition-colors z-50 relative"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Fechar Menu" : "Abrir Menu"}
+          >
+            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {isOpen && (
+        {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl z-40 flex items-center justify-center md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-brand-dark border-t border-white/10 overflow-hidden shadow-2xl"
           >
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-2xl font-serif text-white hover:text-brand-primary transition-colors"
-                >
-                  {link.name}
+            <div className="flex flex-col p-6 gap-6 items-center text-center">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-white/90 hover:text-brand-primary text-xl font-serif">Início</Link>
+              <Link href="/sobre" onClick={() => setIsMobileMenuOpen(false)} className="text-white/90 hover:text-brand-primary text-xl font-serif">Sobre</Link>
+              <Link href="/#produtos" onClick={() => setIsMobileMenuOpen(false)} className="text-white/90 hover:text-brand-primary text-xl font-serif">Produtos</Link>
+              
+              {/* Botão de Checkout no Menu Mobile */}
+              {itemCount > 0 && (
+                <Link href="/checkout" onClick={() => setIsMobileMenuOpen(false)} className="w-full bg-brand-primary text-white py-3 rounded-full font-bold uppercase tracking-widest text-sm shadow-lg mt-2">
+                  Finalizar Compra ({itemCount})
                 </Link>
-              ))}
+              )}
             </div>
           </motion.div>
         )}
