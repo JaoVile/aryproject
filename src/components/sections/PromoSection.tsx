@@ -5,7 +5,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { products as staticProducts } from "@/constants/products";
+import { products as staticProducts, type Product } from "@/constants/products";
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -28,17 +28,27 @@ export default function PromoSection() {
     fetchProducts();
   }, []);
 
-  // === CONFIGURAÇÃO DOS DESTAQUES ===
-  // Escolhi estes 3 IDs baseados no que é visualmente forte e vende bem.
-  // ID 26: Vibrador Golfinho
-  // ID 5: Pikasso
-  // ID 14: Algema com Pelucia
-  const featuredIds = [26, 5, 14]; 
-  
-  // Filtra apenas os produtos escolhidos
-  const featuredProducts = featuredIds
-    .map(id => products.find(p => p.id === id))
-    .filter(p => p !== undefined);
+  // === LÓGICA DE VITRINE INTELIGENTE ===
+  const featuredProducts = (() => {
+    // 1. Filtra apenas produtos com estoque disponível
+    const available = products.filter(p => p.stock > 0);
+
+    // 2. Tenta pegar os seus favoritos (IDs 26, 5, 14)
+    const preferredIds = [26, 5, 14];
+    const primary = preferredIds
+      .map(id => available.find(p => p.id === id))
+      .filter((p): p is Product => p !== undefined);
+
+    // 3. Se faltar produto (ex: algum favorito acabou), completa com outros da loja
+    if (primary.length < 3) {
+      const others = available.filter(p => !preferredIds.includes(p.id));
+      const needed = 3 - primary.length;
+      // Adiciona os que faltam para sempre ter 3 na vitrine
+      return [...primary, ...others.slice(0, needed)];
+    }
+
+    return primary;
+  })();
 
   return (
     <section id="produtos" className="py-24 bg-brand-dark relative overflow-hidden">
